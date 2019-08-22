@@ -27,6 +27,9 @@
 			<div class="talent-actions">
 				<button class="button" v-on:click="saveTalentTrees">Save</button>
 			</div>
+			<div>
+				<a :href="saveLink">{{saveLink}}</a>
+			</div>
 		</main>
 		<footer>
 			<ul>
@@ -52,15 +55,61 @@
 				data: talentData
 			}
 		},
+		computed: {
+			saveLink() {
+				const currentClass = this.data.classes[this.data.currentClass];
+
+				let urlAppendix = `?class=${this.data.currentClass}&skilltree=`;
+				for(const skilltree of currentClass.talentTrees) {
+					for(const talent of skilltree.skills) {
+						urlAppendix += `${talent.currentRank},`
+					}
+				}
+				// remove last seperation comma
+				urlAppendix = urlAppendix.slice(0, urlAppendix.length-1)
+
+				return `${window.location.href.split('?')[0]}${urlAppendix}`;
+			}
+		},
 		mounted(){
+			const copyOfData = this.deserializeTalentTreeFromUrl();
+			if (copyOfData) {
+				this.data = copyOfData;
+				return
+			}
 			let localData = window.localStorage.getItem('talent-data-1');
 			if(localData != null){
 				this.data = JSON.parse(localData);
 			}
 		},
 		methods: {
+			getUrlParam: function(parameter){
+				let url = new URL(window.location);
+				return url.searchParams.get(parameter);
+			},
 			saveTalentTrees: function(){
 				window.localStorage.setItem('talent-data-1', JSON.stringify(this.data));
+			},
+			deserializeTalentTreeFromUrl: function() {
+				let dataCopy = this.data;
+
+				dataCopy.currentClass = parseInt(this.getUrlParam('class'));
+				if (!dataCopy.currentClass) return false;
+
+				const skilltreeString = this.getUrlParam('skilltree');
+				if(!skilltreeString) return false;
+
+				let skilltreeRanks = skilltreeString.split(',');
+
+				for(const skilltreeKey in dataCopy.classes[dataCopy.currentClass].talentTrees) {
+					for(const talentKey in dataCopy.classes[dataCopy.currentClass].talentTrees[skilltreeKey].skills) {
+						console.log(dataCopy.classes[dataCopy.currentClass].talentTrees[skilltreeKey].skills[talentKey].currentRank)
+						dataCopy.classes[dataCopy.currentClass].talentTrees[skilltreeKey].skills[talentKey].currentRank = parseInt(skilltreeRanks[0]);
+						skilltreeRanks = skilltreeRanks.slice(1, skilltreeRanks.length);
+					}
+				}
+
+				return dataCopy;
 			}
 		}
 	}

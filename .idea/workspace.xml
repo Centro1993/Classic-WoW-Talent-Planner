@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4bb3fed9-1ce0-4d01-b81f-0459ca8f8245" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/components/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/components/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -69,7 +68,7 @@
       <workItem from="1566404191306" duration="251000" />
       <workItem from="1566409563705" duration="46000" />
       <workItem from="1566409632900" duration="40000" />
-      <workItem from="1566409693859" duration="8435000" />
+      <workItem from="1566409693859" duration="8671000" />
     </task>
     <servers />
   </component>

@@ -103,7 +103,6 @@
 
 				for(const skilltreeKey in dataCopy.classes[dataCopy.currentClass].talentTrees) {
 					for(const talentKey in dataCopy.classes[dataCopy.currentClass].talentTrees[skilltreeKey].skills) {
-						console.log(dataCopy.classes[dataCopy.currentClass].talentTrees[skilltreeKey].skills[talentKey].currentRank)
 						dataCopy.classes[dataCopy.currentClass].talentTrees[skilltreeKey].skills[talentKey].currentRank = parseInt(skilltreeRanks[0]);
 						skilltreeRanks = skilltreeRanks.slice(1, skilltreeRanks.length);
 					}
